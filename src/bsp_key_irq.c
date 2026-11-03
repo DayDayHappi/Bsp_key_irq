@@ -4,15 +4,8 @@
 //********************************DEFINES*********************************** */
 
 
- QueueHandle_t key_Queue1, key_Queue2;
+QueueHandle_t key_Queue1, key_Queue2;
  
-  // Create a queue capable of containing 10 uint32_t values.
-  key_Queue1 = xQueueCreate( 10, sizeof( key_event ) );
-  if( key_Queue1 == NULL )
-  {
-      // Queue was not created and must not be used.
-  }
-
 key_status_t key_task_func()
 {
     // variable in stack
@@ -20,7 +13,12 @@ key_status_t key_task_func()
     uint8_t     key_flag            = 0;
     uint32_t    tick_temp           = 0;
     uint32_t    tick_differences    = 0;
+    key_Queue1 = xQueueCreate( 10, sizeof( key_event ) );
     key_Queue2 = xQueueCreate( 10, sizeof( key_event ) );
+    if( key_Queue1 == NULL )
+    {
+        // Queue was not created and must not be used.
+    }
     if( key_Queue2 == NULL )
     {
       // Queue was not created and must not be used.
